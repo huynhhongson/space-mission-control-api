@@ -5,8 +5,12 @@ const {
     scheduleNewLaunch,
 } = require('../../models/launches-model')
 
+const { getPagination } = require('../../services/query')
+
 async function httpGetAllLaunches(req, res){
-    return res.status(200).json(await getAllLaunches())
+    const { skip, limit } = getPagination(req.query)
+    const lauches = await getAllLaunches(skip, limit)
+    return res.status(200).json(lauches)
 }
 
 async function httpAddNewLaunch(req, res){
