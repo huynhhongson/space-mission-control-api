@@ -4,10 +4,12 @@ const {
     mongoConnect,
     mongoDisconnect,
 } = require('../../services/mongo')
+const { loadPlanetsData } = require('../../models/planets-model')
 
 describe('Launches API', () =>{
     beforeAll(async () => {
         await mongoConnect()
+        await loadPlanetsData()
     })
     
     afterAll(async () => {
@@ -20,7 +22,6 @@ describe('Launches API', () =>{
                 .get('/v1/launches')
                 .expect('content-Type', /json/)
                 .expect(200)
-            // expect(response.statusCode).toBe(200)
         })
     })
 
